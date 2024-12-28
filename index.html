@@ -14,25 +14,29 @@
     <div class="pokedex">
       <div class="search-bar">
         <label for="search-input">
-          Search for Pokémon Name or ID:    
+          Search for Pokémon Name or ID:<br>
+          (e.g. bulbasaur <strong><i>or</i></strong> 1)  
         </label>
         <input type="text" id="search-input" required>
         <button id="search-button">Search</button>
       </div>
       <div class="screen">
-        <div class="screen-infos">
-          <div class="name-and-id">
-            <p id="pokemon-name"></p>
-            <p id="pokemon-id"></p>
+        <div id="loading-message" style="display: none;">Loading...</div>
+        <div id="pokemon-search-result">
+          <div class="screen-infos">
+            <div class="name-and-id">
+              <p id="pokemon-name"></p>
+              <p id="pokemon-id"></p>
+            </div>
+            <div class="mensurations">
+              <p id="weight"></p>
+              <p id="height"></p>
+            </div>
           </div>
-          <div class="mensurations">
-            <p id="weight"></p>
-            <p id="height"></p>
+          <div id="pokemon-img"></div>
+          <div id="types">
+  
           </div>
-        </div>
-        <div id="pokemon-img"></div>
-        <div id="types">
-
         </div>
       </div>
       <div class="pokemon-stats">
