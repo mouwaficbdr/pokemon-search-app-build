@@ -1,5 +1,7 @@
 const searchInput = document.getElementById('search-input')
 const searchButton = document.getElementById('search-button')
+const loadingMessage = document.getElementById('loading-message')
+const pokemonSearchResult = document.getElementById('pokemon-search-result')
 const pokemonName = document.getElementById('pokemon-name')
 const pokemonId = document.getElementById('pokemon-id')
 const weight = document.getElementById('weight')
@@ -22,13 +24,18 @@ let selectedPokemonInfos = {}
 
 const fetchData = async (enteredPokemon) => {
   try {
+    pokemonSearchResult.style.display = "none"
+    loadingMessage.style.display = "block"
     const res = await fetch(pokemonsAPI)
     const data = await res.json()
     pokemonsList = getPokemons(data);
     selectedPokemon = getSelectedPokemon(pokemonsList, enteredPokemon)
     selectedPokemonInfos = await getSelectedPokemonInfos(selectedPokemon)
+    pokemonSearchResult.style.display = 'block';
   } catch (error) {
     console.log(error)
+  } finally {
+    loadingMessage.style.display = "none"
   }
 }
 
@@ -39,6 +46,17 @@ searchButton.addEventListener("click", async () => {
     displaySelectedPokemon(selectedPokemonInfos)
   } else {
     alert("Pokémon not found")
+  }
+})
+searchInput.addEventListener("keydown", async (event) => {
+  if (event.key == "Enter") {
+    const enteredPokemon = searchInput.value.toLowerCase()
+    await fetchData(enteredPokemon)
+    if (pokemonsList.some(pokemon => pokemon.name === enteredPokemon || pokemon.id == enteredPokemon)) {
+      displaySelectedPokemon(selectedPokemonInfos)
+    } else {
+      alert("Pokémon not found")
+    }
   }
 })
 
